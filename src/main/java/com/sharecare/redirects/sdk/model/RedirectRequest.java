@@ -13,9 +13,10 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 public class RedirectRequest implements DataRequest {
-
     private String id;
-    private String source;
-    private String target;
+    private String inboundPattern;
+    private String outboundPattern;
     private String type;
+    private Boolean retainQueryString;
+    private List<String> segments;
 }

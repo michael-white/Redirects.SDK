@@ -30,8 +30,8 @@ public class RedirectsFunctionalTest {
 
     private final RedirectRequest redirectRequest = RedirectRequest.builder()
             .id("redirect-id")
-            .source("/some/source/path")
-            .target("/some/target/path")
+            .inboundPattern("/some/source/path")
+            .outboundPattern("/some/target/path")
             .type("some-type")
             .build();
 
@@ -59,8 +59,8 @@ public class RedirectsFunctionalTest {
 
         FullRedirectResponse fullRedirect = getResponse.getResult();
         assertThat(fullRedirect.getId(), is(redirectRequest.getId()));
-        assertThat(fullRedirect.getSource(), is(redirectRequest.getSource()));
-        assertThat(fullRedirect.getTarget(), is(redirectRequest.getTarget()));
+        assertThat(fullRedirect.getInboundPattern(), is(redirectRequest.getInboundPattern()));
+        assertThat(fullRedirect.getOutboundPattern(), is(redirectRequest.getOutboundPattern()));
         assertThat(fullRedirect.getType(), is(redirectRequest.getType()));
     }
 
@@ -111,7 +111,8 @@ public class RedirectsFunctionalTest {
 
         List<BasicRedirectResponse> redirects = new ArrayList<>(response);
         BasicRedirectResponse firstRedirect = redirects.get(0);
-        assertThat(redirectRequest.getTarget(), startsWith(firstRedirect.getTarget()));
+        assertThat(redirectRequest.getOutboundPattern(), startsWith(firstRedirect.getOutboundPattern()));
+        assertThat(redirectRequest.getInboundPattern(), startsWith(firstRedirect.getInboundPattern()));
     }
 
     @Ignore
