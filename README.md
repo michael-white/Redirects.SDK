@@ -1,2 +1,2 @@
-# Quizzes.SDK
-Java SDK for the Quizzes API
+# Redirects.SDK
+Java SDK for the Redirects API

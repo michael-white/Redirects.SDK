@@ -18,5 +18,7 @@ public class RedirectRequest implements DataRequest {
     private String outboundPattern;
     private String redirectType;
     private Boolean retainQueryString;
+    private String patternCategory;
+    private String patternType;
     private List<String> segments;
 }
