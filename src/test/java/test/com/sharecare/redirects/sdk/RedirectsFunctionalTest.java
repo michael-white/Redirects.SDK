@@ -93,7 +93,7 @@ public class RedirectsFunctionalTest {
     @Test
     public void testEmptySearchRequest() {
         DataResponse<Collection<BasicRedirectResponse>> searchResult2 = redirectsApiClient.searchRequest()
-                .searchParam("source", "/some/searched/path")
+                .searchParam("inboundPattern", "/some/searched/path")
                 .execute();
         assertNotNull(searchResult2.getResult());
         assertThat(searchResult2.getResult(), hasSize(0));
@@ -103,7 +103,7 @@ public class RedirectsFunctionalTest {
     @Test
     public void testSearchRequest() {
         DataResponse<Collection<BasicRedirectResponse>> searchResult = redirectsApiClient.searchRequest()
-                .searchParam("target", "/some/target/path")
+                .searchParam("outboundPattern", "/some/target/path")
                 .execute();
 
         Collection<BasicRedirectResponse> response = searchResult.getResult();
