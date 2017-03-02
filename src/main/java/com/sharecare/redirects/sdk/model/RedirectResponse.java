@@ -18,6 +18,6 @@ public class RedirectResponse implements DataResponse {
     private String redirectType;
     private Boolean retainQueryString;
     private String patternCategory;
-    private String patternType;
+    private PatternType patternType;
     private List<String> segments;
 }
