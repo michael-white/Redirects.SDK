@@ -33,8 +33,8 @@ public class RedirectsFunctionalTest {
             .inboundPattern("/some/source/path")
             .outboundPattern("/some/target/path")
             .redirectType(RedirectType.builder()
-                                        .id(200)
-                                        .responseCode("some-type")
+                                        .id("some-type")
+                                        .responseCode(200)
                                         .build())
             .build();
 
@@ -85,8 +85,8 @@ public class RedirectsFunctionalTest {
         BasicResponse createResponse = redirectsApiClient.patchRequest()
                 .withData(RedirectRequest.builder()
                                         .redirectType(RedirectType.builder()
-                                                .id(200)
-                                                .responseCode("some-other-type")
+                                                .id("some-other-type")
+                                                .responseCode(200)
                                                 .build()))
                 .withUri(redirectRequest.getId())
                 .addHeader("X-Flow-ID", "1234")

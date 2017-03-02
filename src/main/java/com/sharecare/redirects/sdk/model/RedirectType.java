@@ -10,6 +10,6 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class RedirectType {
-    private final Integer id;
-    private final String responseCode;
+    private final String id;
+    private final Integer responseCode;
 }
