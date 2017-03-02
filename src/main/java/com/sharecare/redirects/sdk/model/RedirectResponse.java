@@ -15,9 +15,9 @@ public class RedirectResponse implements DataResponse {
     private String id;
     private String inboundPattern;
     private String outboundPattern;
-    private String redirectType;
+    private RedirectType redirectType;
     private Boolean retainQueryString;
     private String patternCategory;
-    private PatternType patternType;
+    private String patternType;
     private List<String> segments;
 }

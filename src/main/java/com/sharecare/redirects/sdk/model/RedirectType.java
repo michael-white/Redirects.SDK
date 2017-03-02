@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode
 @ToString
-public class PatternType {
-    private final String id;
+public class RedirectType {
+    private final Integer id;
     private final String responseCode;
 }

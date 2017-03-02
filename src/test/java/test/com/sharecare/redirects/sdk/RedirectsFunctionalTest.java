@@ -32,7 +32,10 @@ public class RedirectsFunctionalTest {
             .id("redirect-id")
             .inboundPattern("/some/source/path")
             .outboundPattern("/some/target/path")
-            .redirectType("some-type")
+            .redirectType(RedirectType.builder()
+                                        .id(200)
+                                        .responseCode("some-type")
+                                        .build())
             .build();
 
 
@@ -80,7 +83,11 @@ public class RedirectsFunctionalTest {
     public void testUpdateRequest() {
         createQuiz();
         BasicResponse createResponse = redirectsApiClient.patchRequest()
-                .withData(RedirectRequest.builder().redirectType("some-other-type").build())
+                .withData(RedirectRequest.builder()
+                                        .redirectType(RedirectType.builder()
+                                                .id(200)
+                                                .responseCode("some-other-type")
+                                                .build()))
                 .withUri(redirectRequest.getId())
                 .addHeader("X-Flow-ID", "1234")
                 .execute();
