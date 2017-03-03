@@ -33,13 +33,16 @@ public class RedirectsFunctionalTest {
             .inboundPattern("/some/source/path")
             .outboundPattern("/some/target/path")
             .redirectType(RedirectType.builder()
-                                        .id("some-type")
-                                        .responseCode(200)
+                                        .id("PERMANENT")
+                                        .responseCode(301)
                                         .build())
+            .patternType("REGEX")
+            .patternCategory("SYSTEM")
+            .retainQueryString(true)
+            .segments(Lists.newArrayList("global"))
             .build();
 
 
-    @Ignore
     @Before
     public void setUp() {
         redirectsApiClient.deleteRequest()
@@ -49,10 +52,9 @@ public class RedirectsFunctionalTest {
                 .execute();
     }
 
-    @Ignore
     @Test
     public void testGetRequest() {
-        createQuiz();
+        createRedirect();
         DataResponse<FullRedirectResponse> getResponse = redirectsApiClient.getRequest()
                 .withUri(redirectRequest.getId())
                 .addHeader("X-Flow-ID", "1234")
@@ -67,7 +69,6 @@ public class RedirectsFunctionalTest {
         assertThat(fullRedirect.getRedirectType(), is(redirectRequest.getRedirectType()));
     }
 
-    @Ignore
     @Test
     public void testCreateRequest() {
         BasicResponse createResponse = redirectsApiClient.putRequest()
@@ -75,18 +76,17 @@ public class RedirectsFunctionalTest {
                 .withUri(redirectRequest.getId())
                 .addHeader("X-Flow-ID", "1234")
                 .execute();
-        assertThat(createResponse.getStatusCode(), is(201));
+        assertThat(createResponse.getStatusCode(), is(200));
     }
 
-    @Ignore
     @Test
     public void testUpdateRequest() {
-        createQuiz();
+        createRedirect();
         BasicResponse createResponse = redirectsApiClient.patchRequest()
                 .withData(RedirectRequest.builder()
                                         .redirectType(RedirectType.builder()
-                                                .id("some-other-type")
-                                                .responseCode(200)
+                                                .id("TEMPORARY")
+                                                .responseCode(302)
                                                 .build()))
                 .withUri(redirectRequest.getId())
                 .addHeader("X-Flow-ID", "1234")
@@ -96,19 +96,19 @@ public class RedirectsFunctionalTest {
 
 
 
-    @Ignore
     @Test
     public void testEmptySearchRequest() {
+
         DataResponse<Collection<BasicRedirectResponse>> searchResult2 = redirectsApiClient.searchRequest()
-                .searchParam("inboundPattern", "/some/searched/path")
+                .searchParam("inboundPattern", "/some/non_existant/path")
                 .execute();
         assertNotNull(searchResult2.getResult());
         assertThat(searchResult2.getResult(), hasSize(0));
     }
 
-    @Ignore
     @Test
     public void testSearchRequest() {
+        createRedirect();
         DataResponse<Collection<BasicRedirectResponse>> searchResult = redirectsApiClient.searchRequest()
                 .searchParam("outboundPattern", "/some/target/path")
                 .execute();
@@ -122,10 +122,9 @@ public class RedirectsFunctionalTest {
         assertThat(redirectRequest.getInboundPattern(), startsWith(firstRedirect.getInboundPattern()));
     }
 
-    @Ignore
     @Test
     public void testDeleteRequest() {
-        createQuiz();
+        createRedirect();
         BasicResponse deleteResponse = redirectsApiClient.deleteRequest()
                 .withUri(redirectRequest.getId())
                 .addHeader("Accept-Language", "en-US")
@@ -134,7 +133,7 @@ public class RedirectsFunctionalTest {
         assertThat(deleteResponse.getStatusCode(), is(200));
     }
 
-    private void createQuiz() {
+    private void createRedirect() {
         redirectsApiClient.putRequest()
                 .withData(redirectRequest)
                 .withUri(redirectRequest.getId())
