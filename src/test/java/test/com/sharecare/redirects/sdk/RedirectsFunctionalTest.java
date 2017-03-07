@@ -110,7 +110,7 @@ public class RedirectsFunctionalTest {
     public void testSearchRequest() {
         createRedirect();
         DataResponse<Collection<BasicRedirectResponse>> searchResult = redirectsApiClient.searchRequest()
-                .searchParam("outboundPattern", "/some/target/path")
+                .searchParam("inboundPattern", "/some/source/path")
                 .execute();
 
         Collection<BasicRedirectResponse> response = searchResult.getResult();
