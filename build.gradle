@@ -1,6 +1,6 @@
 description 'Redirects Java SDK'
 group 'com.sharecare.services'
-version '1.0.7'
+version '1.0.8'
 
 apply plugin: 'java'
 apply plugin: 'maven'

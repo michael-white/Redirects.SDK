@@ -114,7 +114,7 @@ public class RedirectsFunctionalTest {
                 .execute();
 
         Collection<BasicRedirectResponse> response = searchResult.getResult();
-        assertThat(response.size(), is(greaterThan(0)));
+        assertThat(response, hasSize(1));
 
         List<BasicRedirectResponse> redirects = new ArrayList<>(response);
         BasicRedirectResponse firstRedirect = redirects.get(0);
