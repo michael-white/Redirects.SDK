@@ -5,11 +5,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Builder
 @Getter
 @EqualsAndHashCode
 @ToString
-public class RedirectType {
+public class RedirectType implements Serializable {
     private final String id;
     private final Integer responseCode;
 }
